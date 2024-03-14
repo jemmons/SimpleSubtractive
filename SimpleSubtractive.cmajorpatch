@@ -1,0 +1,16 @@
+
+{
+  "CmajorVersion":    1,
+  "ID":               "dev.cmajor.examples.SimpleSubtractive",
+  "version":          "1.0",
+  "name":             "Simple Subtractive",
+  "description":      "A simple subtractive poly-synth.",
+  "category":         "synth",
+  "manufacturer":     "Cmajor Software Ltd",
+  "isInstrument":     true,
+  "source":           [ 
+                        "src/Main.cmajor",
+                        "src/Voice.cmajor",
+                        "src/NoteToFrequency.cmajor"
+                      ]
+}

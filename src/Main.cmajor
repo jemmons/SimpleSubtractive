@@ -1,0 +1,29 @@
+graph SimpleSubtractive [[ main ]]
+{
+    input event std::midi::Message midiIn;
+    input event float cutoff [[ name: "Cutoff", unit: "Hz", min: 0.0, max:20000.0, init: 1000.0 ]];
+    input event float resonance [[ name: "Resonance", min: 0.1, max:1.0, init: 0.1 ]];
+    input gain.volume;
+    output stream float out;
+
+    let voiceCount = 8;
+
+    node 
+    {
+        voices = Voice[voiceCount];
+        voiceAllocator = std::voices::VoiceAllocator (voiceCount);
+        gain = std::levels::SmoothedGain (float, 0.1f);
+    }
+
+    connection
+    {
+        midiIn -> std::midi::MPEConverter -> voiceAllocator;
+        voiceAllocator.voiceEventOut -> voices.eventIn;
+
+        cutoff -> voices.frequency;
+        resonance -> voices.q;
+
+        voices -> gain.in;
+        gain -> out;
+    }
+}
