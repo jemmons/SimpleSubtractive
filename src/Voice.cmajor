@@ -3,13 +3,14 @@ graph Voice
     input event (std::notes::NoteOn, std::notes::NoteOff) eventIn;
     input filter.frequency;
     input filter.q;
+    input oscillator.shapeIn;
     output stream float out;
 
     node
     {
         noteToFrequency = NoteToFrequency;
         envelope = std::envelopes::FixedASR (0.5f, 0.8f);
-        oscillator = std::oscillators::Phasor(float);
+        oscillator = std::oscillators::PolyblepOscillator (float);
         filter = std::filters(float)::tpt::svf::Processor;
     }
 
